@@ -10,8 +10,8 @@ namespace ReFood.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+            migrationBuilder.Sql(
+                "IF OBJECT_ID(N'[ShoppingCarts]', N'U') IS NOT NULL DROP TABLE [ShoppingCarts];");
 
             migrationBuilder.CreateTable(
                 name: "Orders",

@@ -34,7 +34,13 @@ namespace ReFood
 			builder.Services.AddSession();
 			builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 			builder.Services.AddRazorPages();
-            var app = builder.Build();
+			var app = builder.Build();
+
+			using (var scope = app.Services.CreateScope())
+			{
+				var dbContext = scope.ServiceProvider.GetRequiredService<ReFoodDbContext>();
+				dbContext.Database.Migrate();
+			}
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
